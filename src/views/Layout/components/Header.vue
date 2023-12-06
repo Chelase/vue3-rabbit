@@ -1,5 +1,15 @@
 <script setup>
+  import NavCom from '@/views/Layout/components/NavCom.vue'
+  import { onMounted } from 'vue'
+  import { useLayoutStore } from 'stores/layout'
+  import {storeToRefs} from 'pinia'
 
+  const layoutStore = useLayoutStore()
+  const {HeadList} = storeToRefs(layoutStore)
+  //获取导航分类
+  onMounted(() => {
+    layoutStore.getCategoryList()
+  })
 </script>
 
 <template>
@@ -8,13 +18,11 @@
       <h1 class="logo">
         <RouterLink to="/">小兔鲜</RouterLink>
       </h1>
+      <NavCom/>
       <ul class="app-header-nav">
-        <li class="home">
-          <RouterLink to="/">首页</RouterLink>
+        <li class="home" v-for="item in HeadList" :key="item.id">
+          <RouterLink active-class="active" :to="`/category/${item.id}`">{{item.name}}</RouterLink>
         </li>
-        <li> <RouterLink to="/">居家</RouterLink> </li>
-        <li> <RouterLink to="/">美食</RouterLink> </li>
-        <li> <RouterLink to="/">服饰</RouterLink> </li>
       </ul>
       <div class="search">
         <i class="iconfont icon-search"></i>
@@ -26,7 +34,7 @@
   </header>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .app-header {
   background: #fff;
 

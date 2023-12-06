@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
 
-export const request = axios.create({
+const request = axios.create({
     // baseURL: process.env.VUE_APP_BASE_API,
     baseURL: 'http://pcapi-xiaotuxian-front-devtest.itheima.net',
     timeout: 5000
@@ -14,15 +14,17 @@ request.interceptors.request.use((config) => {
 })
 
 request.interceptors.response.use((response) => {
-    const { data, message, success } = response.data
-    if (success) {
-
-        return data
+    if (response.data instanceof Blob) return response.data
+    const { result, msg, code } = response.data
+    if (code === "1") {
+        return result
     } else {
-        ElMessage.error(message)
-        return Promise.reject(new Error(message))
+        ElMessage({ type: 'error', message: msg })
+        return Promise.reject(new Error(msg))
     }
 }, async(error) => {
-    ElMessage.error(error.message)
+    // ElMessage.error(error.message)
     return Promise.reject(error)
 })
+
+export default request

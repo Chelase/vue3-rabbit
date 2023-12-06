@@ -5,7 +5,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: 'Layout',
       component: () => import('@/views/Layout/index.vue'),
       children: [
         {
@@ -14,9 +14,14 @@ const router = createRouter({
           component: () => import('@/views/Home/index.vue')
         },
         {
-          path: 'category',
+          path: '/category/:id',
           name: 'Category',
           component: () => import('@/views/Category/index.vue')
+        },
+        {
+          path: 'category/sub/:id',
+          name: 'subcategory',
+          component: () => import('@/views/Subcategory/index.vue')
         }
       ]
     },
