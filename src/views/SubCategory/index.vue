@@ -3,6 +3,7 @@ import categoryApi from "@/api/category";
 import { useRoute } from "vue-router";
 import { onMounted, ref } from "vue";
 import GoodsItem from "@/components/GoodsItem.vue";
+import { ArrowRight } from '@element-plus/icons-vue'
 
 const route = useRoute()
 
@@ -14,8 +15,7 @@ onMounted(() => {
 const subCategory = ref([])
 const getSubCategory = async (id) => {
   subCategory.value = await categoryApi.getSubCategoryList(id)
-  console.log(16,subCategory.value)
-}
+} // 面包屑name
 
 const reqData = ref({
   categoryId: route.params.id,
@@ -25,30 +25,47 @@ const reqData = ref({
 })
 const subCategoryList = ref([])
 const getSubCategoryListData = async () => {
-  subCategoryList.value = await categoryApi.getSubCategoryData(reqData.value)
-  console.log(28,subCategoryList.value)
-}
+  const res = await categoryApi.getSubCategoryData(reqData.value)
+  subCategoryList.value = res.items
+} // 获取分类数据
+
+const tabChange = async () => {
+  console.log(35, reqData.value.sortField)
+  reqData.value.page = 1
+  await getSubCategoryListData(reqData.value)
+} // 切换tab获取数据
+
+const disabled = ref(false)
+const load = async () => {
+  reqData.value.page++
+  const { items } = await categoryApi.getSubCategoryData(reqData.value)
+  subCategoryList.value = [...subCategoryList.value,...items]
+  // 加载完毕 停止监听
+  if (items.length === 0) {
+    disabled.value = true
+  }
+} // 触底获取下一页数据
 </script>
 
 <template>
-  <div class="container ">
+  <div class="container">
     <!-- 面包屑 -->
     <div class="bread-container">
-      <el-breadcrumb separator=">">
-        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-        <el-breadcrumb-item :to="{ path: `/category/${subCategory.parentId}` }">{{ subCategory.parentName }}</el-breadcrumb-item>
+      <el-breadcrumb :separator-icon="ArrowRight">
+        <el-breadcrumb-item to="/">首页</el-breadcrumb-item>
+        <el-breadcrumb-item :to="`/category/${subCategory.parentId}`">{{ subCategory.parentName }}</el-breadcrumb-item>
         <el-breadcrumb-item>{{ subCategory.name }}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
     <div class="sub-container">
-      <el-tabs v-model="reqData.sortField">
+      <el-tabs v-model="reqData.sortField" @tab-change="tabChange">
         <el-tab-pane label="最新商品" name="publishTime"></el-tab-pane>
         <el-tab-pane label="最高人气" name="orderNum"></el-tab-pane>
         <el-tab-pane label="评论最多" name="evaluateNum"></el-tab-pane>
       </el-tabs>
-      <div class="body">
+      <div class="body" v-infinite-scroll="load" :infinite-scroll-disabled="disabled">
         <!-- 商品列表-->
-        <GoodsItem v-for="good in subCategoryList.items" :goods="good" :key="good.id" />
+        <GoodsItem v-for="good in subCategoryList" :goods="good" :key="good.id" />
       </div>
     </div>
   </div>
