@@ -3,7 +3,10 @@ import { useRoute } from 'vue-router'
 import { getDetails } from '@/api/details'
 import { onMounted, ref } from 'vue'
 import { ArrowRight } from '@element-plus/icons-vue'
-import GoodHot from "@/views/Details/components/GoodHot.vue";
+import GoodHot from './components/GoodHot.vue'
+// import PicturePreview from './components/PicturePreview.vue'
+import PhototTest from './components/PhototTest.vue'
+import Sku from './components/Sku.vue'
 
 const route = useRoute()
 
@@ -42,7 +45,8 @@ const getDetailsList = async () => {
           <div class="goods-info">
             <div class="media">
               <!-- 图片预览区 -->
-
+<!--              <PicturePreview :image-list="goods.mainPictures"/>-->
+              <PhototTest :images="goods.mainPictures"/>
               <!-- 统计数量 -->
               <ul class="goods-sales">
                 <li>
@@ -60,7 +64,7 @@ const getDetailsList = async () => {
                   <p>{{ goods.collectCount }}+</p>
                   <p><i class="iconfont icon-favorite-filling"></i>收藏商品</p>
                 </li>
-                <li>
+                <li v-if="goods.brand !== null">
                   <p>品牌信息</p>
                   <p>{{ goods.brand.name }}</p>
                   <p><i class="iconfont icon-dynamic-filling"></i>品牌主页</p>
@@ -91,7 +95,7 @@ const getDetailsList = async () => {
                 </dl>
               </div>
               <!-- sku组件 -->
-
+              <Sku :specs="goods.specs"/>
               <!-- 数据组件 -->
 
               <!-- 按钮组件 -->

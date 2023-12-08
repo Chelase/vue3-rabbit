@@ -28,7 +28,7 @@
   </nav>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .app-topnav {
   background: #333;
   ul {

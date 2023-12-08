@@ -67,7 +67,7 @@
   </footer>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .app_footer {
   overflow: hidden;
   background-color: #f5f5f5;

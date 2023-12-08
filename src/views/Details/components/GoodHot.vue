@@ -18,12 +18,12 @@ const title = computed(() => titleMap[prop.type])
 
 const route = useRoute()
 const goodList = ref([])
+
 const getHotList = async () => {
   goodList.value = await getHotDetails({
     id:  route.params.id,
     type: prop.type
   })
-  console.log('热榜数据', goodList.value)
 }
 getHotList()
 </script>
