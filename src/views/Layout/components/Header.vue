@@ -1,7 +1,7 @@
 <script setup>
 import NavCom from '@/views/Layout/components/NavCom.vue'
-import { onMounted } from 'vue'
-import { useLayoutStore } from 'stores/layout'
+import {onMounted} from 'vue'
+import {useLayoutStore} from 'stores/layout'
 import {storeToRefs} from 'pinia'
 
 const layoutStore = useLayoutStore()
@@ -21,7 +21,7 @@ onMounted(() => {
       <NavCom/>
       <ul class="app-header-nav">
         <li class="home" v-for="item in HeadList" :key="item.id">
-          <RouterLink active-class="active" :to="`/category/${item.id}`">{{item.name}}</RouterLink>
+          <RouterLink active-class="active" :to="`/category/${item.id}`">{{ item.name }}</RouterLink>
         </li>
       </ul>
       <div class="search">
