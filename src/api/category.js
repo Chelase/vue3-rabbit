@@ -16,9 +16,7 @@ export const getSubCategoryList = (id) => {
 }
 
 export const getSubCategoryData = (data) => {
-    return request.post('/category/goods/temporary', {
-        data
-    })
+    return request.post('/category/goods/temporary', data)
 } // 获取分类数据
 
 export default {
