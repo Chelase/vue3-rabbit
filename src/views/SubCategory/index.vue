@@ -32,7 +32,7 @@ const getSubCategoryListData = async () => {
 const tabChange = async () => {
   console.log(35, reqData.value.sortField)
   reqData.value.page = 1
-  await getSubCategoryListData(reqData.value)
+  await categoryApi.getSubCategoryData(reqData.value)
 } // 切换tab获取数据
 
 const disabled = ref(false)

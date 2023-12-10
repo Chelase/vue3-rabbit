@@ -27,6 +27,43 @@ const router = createRouter({
           path: '/detail/:id',
           name: 'Detail',
           component: () => import('@/views/Details/index.vue')
+        },
+        {
+          path: '/cartList',
+          name: 'cartList',
+          component: () => import('@/views/CartList/index.vue')
+        },
+        {
+          path: '/order',
+          name: 'order',
+          component: () => import('@/views/Order/index.vue')
+        },
+        {
+          path: '/pay',
+          name: 'pay',
+          component: () => import('@/views/Pay/index.vue')
+        },
+        {
+          path: '/paycallback',
+          name: 'paycallback',
+          component: () => import('@/views/PayBack/index.vue')
+        },
+        {
+          path: '/member',
+          name: 'member',
+          component: () => import('@/views/Member/index.vue'),
+          children: [
+            {
+              path: '',
+              name: 'userInfo',
+              component: () => import('@/views/Member/components/UserInfo.vue')
+            },
+            {
+              path: '/member/order',
+              name: 'userOrder',
+              component: () => import('@/views/Member/components/UserOrder.vue')
+            }
+          ]
         }
       ]
     },

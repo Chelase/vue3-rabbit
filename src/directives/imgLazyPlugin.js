@@ -1,6 +1,6 @@
 import { useIntersectionObserver } from '@vueuse/core'
 
-export const imgLacyPlugin = {
+export const imgLazyPlugin = {
     install(app) {
         app.directive('img-lazy',{
             mounted (el, binding) {
@@ -16,4 +16,4 @@ export const imgLacyPlugin = {
     }
 }; // 封装为自定义vue插件
 
-export default imgLacyPlugin
+export default imgLazyPlugin

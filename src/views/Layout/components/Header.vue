@@ -3,6 +3,7 @@ import NavCom from '@/views/Layout/components/NavCom.vue'
 import {onMounted} from 'vue'
 import {useLayoutStore} from 'stores/layout'
 import {storeToRefs} from 'pinia'
+import Cart from './cart.vue'
 
 const layoutStore = useLayoutStore()
 const {HeadList} = storeToRefs(layoutStore)
@@ -29,7 +30,7 @@ onMounted(() => {
         <input type="text" placeholder="搜一搜">
       </div>
       <!-- 头部购物车 -->
-
+      <Cart/>
     </div>
   </header>
 </template>

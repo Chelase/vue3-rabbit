@@ -4,9 +4,14 @@ import { getDetails } from '@/api/details'
 import { onMounted, ref } from 'vue'
 import { ArrowRight } from '@element-plus/icons-vue'
 import GoodHot from './components/GoodHot.vue'
-// import PicturePreview from './components/PicturePreview.vue'
+// import PicturePreview from './PayBack/PicturePreview.vue'
 import PhototTest from './components/PhototTest.vue'
 import Sku from './components/Sku.vue'
+import XtxSku from './components/XtxSku/index.vue'
+import {useCartStore} from "stores/cart";
+import {ElMessage} from "element-plus";
+
+const CartStore = useCartStore()
 
 const route = useRoute()
 
@@ -18,6 +23,24 @@ const goods = ref([])
 const getDetailsList = async () => {
   goods.value = await getDetails(route.params.id)
 } // 获取详情
+
+const skuList = ref(null)
+const ReceiveSpecifications = (row) => {
+  skuList.value = row
+}
+const isSku = () => {
+  if (skuList.value === null) return ElMessage.error('未选择规格')
+  CartStore.addCart(skuList.value.skuId, {
+    id: goods.value.id,
+    name: goods.value.name,
+    picture: goods.value.mainPictures[0],
+    price: goods.value.price,
+    count: goods.value.discount,
+    skuId: skuList.value.skuId,
+    attrsText: skuList.value.specsText,
+    selected: true
+  })
+}
 </script>
 
 <template>
@@ -95,12 +118,13 @@ const getDetailsList = async () => {
                 </dl>
               </div>
               <!-- sku组件 -->
-              <Sku :specs="goods.specs"/>
+<!--              <Sku :specs="goods.specs"/>-->
+              <XtxSku :goods="goods" @change="ReceiveSpecifications"/>
               <!-- 数据组件 -->
-
+              <el-input-number v-model="goods.discount" />
               <!-- 按钮组件 -->
               <div>
-                <el-button size="large" class="btn">
+                <el-button size="large" class="btn" @click="isSku">
                   加入购物车
                 </el-button>
               </div>
