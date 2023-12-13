@@ -1,6 +1,6 @@
 <script setup>
 import { ArrowRight } from '@element-plus/icons-vue'
-import { watch, onMounted } from 'vue'
+import { onMounted } from 'vue'
 import banner from '@/components/banner.vue'
 import GoodsItem from '@/components/GoodsItem.vue'
 import { useCategory } from '@/composables/useCategory'
@@ -13,10 +13,6 @@ const route = useRoute()
 onMounted(() => {
   CategoryApi.getCategory(route.params.id)
 })
-
-// watch(route, () => {
-//   if (route.params.id) getCategory(route.params.id)
-// }) // 使用监听器监听id变化
 
 </script>
 

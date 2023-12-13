@@ -6,7 +6,7 @@ import { useMouseInElement } from '@vueuse/core'
 defineProps({
   imageList: {
     type: Array,
-    default: []
+    default: () => []
   }
 })
 

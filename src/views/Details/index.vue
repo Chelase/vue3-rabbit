@@ -6,7 +6,7 @@ import { ArrowRight } from '@element-plus/icons-vue'
 import GoodHot from './components/GoodHot.vue'
 // import PicturePreview from './PayBack/PicturePreview.vue'
 import PhototTest from './components/PhototTest.vue'
-import Sku from './components/Sku.vue'
+// import Sku from './components/Sku.vue'
 import XtxSku from './components/XtxSku/index.vue'
 import {useCartStore} from "stores/cart";
 import {ElMessage} from "element-plus";

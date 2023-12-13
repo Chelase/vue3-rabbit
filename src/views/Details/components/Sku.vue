@@ -3,7 +3,7 @@
 defineProps({
   specs: {
     type: Array,
-    default: []
+    default: () => []
   }
 })
 

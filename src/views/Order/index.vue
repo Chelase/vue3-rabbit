@@ -152,7 +152,6 @@ const createOrder = async () => {
     </div>
   </div>
   <!-- 切换地址 -->
-  <!-- 切换地址 -->
   <el-dialog v-model="showDialog" title="切换收货地址" width="30%" center>
     <div class="addressWrapper">
       <div class="text item" :class="{ active: activeAddress.id === item.id }" @click="switchAddress(item)" v-for="item in OrderInfo.userAddresses" :key="item.id">

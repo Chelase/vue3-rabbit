@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
 import {useUserInfoStore} from "stores/user";
-import router from "@/router";
 
 const request = axios.create({
     // baseURL: process.env.VUE_APP_BASE_API,

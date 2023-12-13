@@ -11,7 +11,7 @@ defineProps({
   },
   List: {
     type: Array,
-    default: []
+    default: () => []
   }
 })
 </script>
